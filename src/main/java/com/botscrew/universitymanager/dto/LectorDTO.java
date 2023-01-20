@@ -4,10 +4,7 @@ import com.botscrew.universitymanager.model.Degree;
 import com.botscrew.universitymanager.model.Department;
 import com.botscrew.universitymanager.validator.NameConstraint;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,6 +12,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class LectorDTO {
@@ -26,7 +24,7 @@ public class LectorDTO {
 
     @NotNull(message = "must not be null")
     @NameConstraint
-    private String lastName;
+    private String lastname;
 
     @NotNull(message = "must not be null")
     private Degree degree;
@@ -36,6 +34,7 @@ public class LectorDTO {
     @NotNull(message = "must not be null")
     private LocalDate dateOfBirth;
 
+    @NotNull(message = "must not be null")
     private Set<Department> departments;
 
 }

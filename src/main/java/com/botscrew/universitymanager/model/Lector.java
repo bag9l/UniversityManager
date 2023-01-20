@@ -27,7 +27,7 @@ public class Lector {
     private String firstname;
 
     @Column(name = "`lastname`", nullable = false)
-    private String lastName;
+    private String lastname;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "`degree`", nullable = false, unique = false)
@@ -66,7 +66,7 @@ public class Lector {
         Lector lector = (Lector) o;
         return id.equals(lector.id)
                 && firstname.equals(lector.firstname)
-                && lastName.equals(lector.lastName)
+                && lastname.equals(lector.lastname)
                 && degree == lector.degree
                 && Objects.equals(salary, lector.salary)
                 && dateOfBirth.equals(lector.dateOfBirth)
@@ -79,7 +79,7 @@ public class Lector {
         return Objects.hash(
                 id,
                 firstname,
-                lastName,
+                lastname,
                 degree,
                 salary,
                 dateOfBirth,
