@@ -8,20 +8,20 @@ Please send us a link to the GitHub repository with your version of this project
 
 The app should implement such commands:
 
-1. User Input: Who is head of department {department_name}
+1. User Input: Who is head of department {department_name}<br />
         Answer: Head of {department_name} department is {head_of_department_name}
 
-2. User Input: Show {department_name} statistics.
-        Answer: assistans - {assistams_count}. 
-                associate professors - {associate_professors_count}
+2. User Input: Show {department_name} statistics.<br />
+        Answer: assistans - {assistams_count}. <br />
+                associate professors - {associate_professors_count}<br />
                 professors -{professors_count}
 
-3. User Input: Show the average salary for the department {department_name}.
+3. User Input: Show the average salary for the department {department_name}.<br />
         Answer: The average salary of {department_name} is {average_salary}
 
-4. User Input: Show count of employee for {department_name}.
+4. User Input: Show count of employee for {department_name}.<br />
         Answer: {employee_count}
 
-5. User Input: Global search by {template}.
-        Example: Global search by van
+5. User Input: Global search by {template}.<br />
+        Example: Global search by van<br />
         Answer: Ivan Petrenko, Petro Ivanov
