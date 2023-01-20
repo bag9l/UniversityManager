@@ -1,16 +1,18 @@
 package com.botscrew.universitymanager.service;
 
-import com.botscrew.universitymanager.repository.LectorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.botscrew.universitymanager.dto.LectorDTO;
+import com.botscrew.universitymanager.model.Lector;
 
-@Service
-public class LectorService {
+import java.util.List;
 
-    private final LectorRepository lectorRepository;
+public interface LectorService {
+    List<Lector> getAllLectors();
 
-    @Autowired
-    public LectorService(LectorRepository lectorRepository) {
-        this.lectorRepository = lectorRepository;
-    }
+    Lector addLector(LectorDTO lector);
+
+    Lector getLectorById(String id);
+
+    Lector updateLector(LectorDTO lector, String id);
+
+    void deleteLectorById(String id);
 }

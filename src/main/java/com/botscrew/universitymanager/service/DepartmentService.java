@@ -1,16 +1,14 @@
 package com.botscrew.universitymanager.service;
 
-import com.botscrew.universitymanager.repository.DepartmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.botscrew.universitymanager.dto.DepartmentDTO;
+import com.botscrew.universitymanager.model.Department;
 
-@Service
-public class DepartmentService {
+import java.util.List;
 
-    private final DepartmentRepository departmentRepository;
-
-    @Autowired
-    public DepartmentService(DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
-    }
+public interface DepartmentService {
+    List<Department> getAllDepartments();
+    Department addDepartment(DepartmentDTO department);
+    Department getDepartmentById(String id);
+    Department updateDepartment(DepartmentDTO department, String id);
+    void deleteDepartmentById(String id);
 }
