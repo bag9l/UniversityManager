@@ -9,7 +9,7 @@ Please send us a link to the GitHub repository with your version of this project
 The app should implement such commands:
 
 1. User Input: Who is head of department {department_name}<br />
-        * Answer: Head of {department_name} department is {head_of_department_name}
+        > Answer: Head of {department_name} department is {head_of_department_name}
 
 2. User Input: Show {department_name} statistics.<br />
         * Answer: assistans - {assistams_count}. <br />
