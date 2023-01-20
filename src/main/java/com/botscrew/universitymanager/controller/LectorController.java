@@ -3,6 +3,7 @@ package com.botscrew.universitymanager.controller;
 import com.botscrew.universitymanager.dto.LectorDTO;
 import com.botscrew.universitymanager.model.Lector;
 import com.botscrew.universitymanager.service.LectorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +35,13 @@ public class LectorController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<Lector> createLector(@RequestBody LectorDTO dto) {
+    public ResponseEntity<Lector> createLector(@RequestBody @Valid LectorDTO dto) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 lectorService.addLector(dto));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Lector> updateLector(@RequestBody LectorDTO dto,
+    public ResponseEntity<Lector> updateLector(@RequestBody @Valid LectorDTO dto,
                                                @PathVariable("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 lectorService.updateLector(dto, id));

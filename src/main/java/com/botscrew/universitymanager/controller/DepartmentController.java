@@ -3,6 +3,7 @@ package com.botscrew.universitymanager.controller;
 import com.botscrew.universitymanager.dto.DepartmentDTO;
 import com.botscrew.universitymanager.model.Department;
 import com.botscrew.universitymanager.service.DepartmentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +35,13 @@ public class DepartmentController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<Department> createDepartment(@RequestBody DepartmentDTO dto){
+    public ResponseEntity<Department> createDepartment(@RequestBody @Valid DepartmentDTO dto){
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.addDepartment(dto));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Department> updateDepartment(@RequestBody DepartmentDTO dto,
+    public ResponseEntity<Department> updateDepartment(@RequestBody @Valid DepartmentDTO dto,
                                                        @PathVariable("id") String id){
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.updateDepartment(dto,id));
