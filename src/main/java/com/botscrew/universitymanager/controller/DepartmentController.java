@@ -66,4 +66,10 @@ public class DepartmentController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.getLectorsStatisticOfDepartment(departmentId));
     }
+
+    @GetMapping("{id}/avg_salary")
+    public ResponseEntity<Double> getAvgSalary(@PathVariable("id") String departmentId) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                departmentService.calculateAvgSalaryForTheDepartment(departmentId));
+    }
 }

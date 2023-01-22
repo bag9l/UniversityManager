@@ -21,4 +21,6 @@ public interface DepartmentService {
     Lector getHeadByDepartmentId(String id);
 
     Map<String, Integer> getLectorsStatisticOfDepartment(String departmentId);
+
+    Double calculateAvgSalaryForTheDepartment(String departmentId);
 }
