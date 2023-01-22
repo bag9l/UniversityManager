@@ -2,6 +2,7 @@ package com.botscrew.universitymanager.controller;
 
 import com.botscrew.universitymanager.dto.DepartmentDTO;
 import com.botscrew.universitymanager.model.Department;
+import com.botscrew.universitymanager.model.Lector;
 import com.botscrew.universitymanager.service.DepartmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,11 @@ public class DepartmentController {
     public ResponseEntity<Void> deleteDepartment(@PathVariable("id") String id){
         departmentService.deleteDepartmentById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("{id}/head")
+    public ResponseEntity<Lector> getHeadOfDepartment(@PathVariable("id") String departmentId){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                departmentService.getHeadByDepartmentId(departmentId));
     }
 }

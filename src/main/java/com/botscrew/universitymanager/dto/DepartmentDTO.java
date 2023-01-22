@@ -1,11 +1,8 @@
 package com.botscrew.universitymanager.dto;
 
-import com.botscrew.universitymanager.model.Lector;
 import com.botscrew.universitymanager.validator.NameConstraint;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.util.Set;
 
 @Getter
 @Setter
@@ -20,5 +17,7 @@ public class DepartmentDTO {
     @NameConstraint
     private String name;
 
-    private Set<Lector> lectors;
+    private String headId;
+
+    private String[] lectorsIds;
 }

@@ -1,5 +1,7 @@
 package com.botscrew.universitymanager.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -23,7 +25,12 @@ public class Department {
     @Column(name = "`name`")
     private String name;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Lector head;
+
     @ManyToMany(mappedBy = "departments", fetch = FetchType.LAZY)
+//    @JsonBackReference
     private Set<Lector> lectors;
 
     @Override

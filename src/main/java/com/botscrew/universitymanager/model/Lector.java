@@ -1,5 +1,7 @@
 package com.botscrew.universitymanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -53,6 +55,7 @@ public class Lector {
                     @JoinColumn(name = "department_id", referencedColumnName = "id")
             }
     )
+//    @JsonManagedReference
     private Set<Department> departments;
 
     public Integer getAge() {
