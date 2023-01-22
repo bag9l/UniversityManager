@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
-class ApiValidationError{
+class ApiValidationError {
     private List<Object> object;
     private String field;
     private Object rejectedValue;

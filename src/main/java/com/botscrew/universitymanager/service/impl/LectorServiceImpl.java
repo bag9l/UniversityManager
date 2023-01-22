@@ -69,6 +69,10 @@ public class LectorServiceImpl implements LectorService {
         lectorRepository.deleteById(id);
     }
 
+    @Override
+    public List<Lector> findLectorsByTemplate(String template) {
+        return lectorRepository.findLectorsContainsTemplate(template);
+    }
 
     private Set<Department> findDepartmentsByIds(String[] ids) {
         List<String> listOfIds = List.of(ids);

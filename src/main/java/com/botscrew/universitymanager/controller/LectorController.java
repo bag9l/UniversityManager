@@ -48,8 +48,14 @@ public class LectorController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteLector(@PathVariable("id") String id){
+    public ResponseEntity<Void> deleteLector(@PathVariable("id") String id) {
         lectorService.deleteLectorById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<Lector>> findByTemplate(@RequestParam("template") String template) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                lectorService.findLectorsByTemplate(template));
     }
 }

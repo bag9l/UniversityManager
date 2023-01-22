@@ -1,6 +1,6 @@
 package com.botscrew.universitymanager.exception;
 
-public class EntityNotExistsException extends RuntimeException{
+public class EntityNotExistsException extends RuntimeException {
     private static final String ENTITY_NOT_EXISTS = "Unable to find entity.";
 
     public EntityNotExistsException(String message) {

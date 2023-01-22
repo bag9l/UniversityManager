@@ -1,6 +1,5 @@
 package com.botscrew.universitymanager.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +29,6 @@ public class Department {
     private Lector head;
 
     @ManyToMany(mappedBy = "departments", fetch = FetchType.LAZY)
-//    @JsonBackReference
     private Set<Lector> lectors;
 
     @Override

@@ -15,4 +15,6 @@ public interface LectorService {
     Lector updateLector(LectorDTO lector, String id);
 
     void deleteLectorById(String id);
+
+    List<Lector> findLectorsByTemplate(String template);
 }
