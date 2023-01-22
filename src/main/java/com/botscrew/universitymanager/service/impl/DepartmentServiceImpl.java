@@ -2,6 +2,7 @@ package com.botscrew.universitymanager.service.impl;
 
 import com.botscrew.universitymanager.dto.DepartmentDTO;
 import com.botscrew.universitymanager.exception.EntityNotExistsException;
+import com.botscrew.universitymanager.model.Degree;
 import com.botscrew.universitymanager.model.Department;
 import com.botscrew.universitymanager.model.Lector;
 import com.botscrew.universitymanager.repository.DepartmentRepository;
@@ -11,8 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.botscrew.universitymanager.helper.NullPropertyFinder.getNullPropertyNames;
@@ -74,6 +74,17 @@ public class DepartmentServiceImpl implements DepartmentService {
                 new EntityNotExistsException("Head not found"));
     }
 
+    @Override
+    public Map<String, Integer> getLectorsStatisticOfDepartment(String departmentId) {
+        Map<String, Integer> statistics = new LinkedHashMap<>();
+
+        Arrays.stream(Degree.values())
+                .forEach(degree ->
+                        statistics.put(degree.getValue(),
+                                departmentRepository.countLectorsByIdAndLectorDegree(departmentId, degree)));
+
+        return statistics;
+    }
 
     private Set<Lector> findLectorsByIds(String[] ids) {
         List<String> ListOfIds = List.of(ids);
@@ -83,7 +94,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     private Lector findHeadById(String id) {
-        Lector head = lectorRepository.findById(id).orElseThrow(()->
+        Lector head = lectorRepository.findById(id).orElseThrow(() ->
                 new EntityNotExistsException("Lector with id:" + id + " not found"));
         return head;
     }

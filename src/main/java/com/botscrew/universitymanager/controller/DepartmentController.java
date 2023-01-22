@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/departments")
@@ -24,39 +25,45 @@ public class DepartmentController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Department>> getDepartments(){
+    public ResponseEntity<List<Department>> getDepartments() {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.getAllDepartments());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Department> getDepartmentById(@PathVariable("id") String id){
+    public ResponseEntity<Department> getDepartmentById(@PathVariable("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.getDepartmentById(id));
     }
 
     @PostMapping("create")
-    public ResponseEntity<Department> createDepartment(@RequestBody @Valid DepartmentDTO dto){
+    public ResponseEntity<Department> createDepartment(@RequestBody @Valid DepartmentDTO dto) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.addDepartment(dto));
     }
 
     @PutMapping("{id}")
     public ResponseEntity<Department> updateDepartment(@RequestBody @Valid DepartmentDTO dto,
-                                                       @PathVariable("id") String id){
+                                                       @PathVariable("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                departmentService.updateDepartment(dto,id));
+                departmentService.updateDepartment(dto, id));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteDepartment(@PathVariable("id") String id){
+    public ResponseEntity<Void> deleteDepartment(@PathVariable("id") String id) {
         departmentService.deleteDepartmentById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("{id}/head")
-    public ResponseEntity<Lector> getHeadOfDepartment(@PathVariable("id") String departmentId){
+    public ResponseEntity<Lector> getHeadOfDepartment(@PathVariable("id") String departmentId) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.getHeadByDepartmentId(departmentId));
+    }
+
+    @GetMapping("{id}/statistics")
+    public ResponseEntity<Map<String, Integer>> getStatistics(@PathVariable("id") String departmentId) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                departmentService.getLectorsStatisticOfDepartment(departmentId));
     }
 }

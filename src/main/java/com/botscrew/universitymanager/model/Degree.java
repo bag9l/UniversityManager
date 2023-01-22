@@ -1,10 +1,21 @@
 package com.botscrew.universitymanager.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Degree {
-    @JsonProperty("assistant") ASSISTANT,
-    @JsonProperty("associate professor") ASSOCIATE_PROFESSOR,
-    @JsonProperty("professor") PROFESSOR
+    ASSISTANT("assistant"),
+    ASSOCIATE_PROFESSOR("associate professor"),
+    PROFESSOR("professor");
+
+    private String value;
+
+    Degree(String value) {
+        this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
 
 }
