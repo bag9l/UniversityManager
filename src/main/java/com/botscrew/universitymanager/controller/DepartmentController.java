@@ -72,4 +72,10 @@ public class DepartmentController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.calculateAvgSalaryForTheDepartment(departmentId));
     }
+
+    @GetMapping("{id}/number_of_employees")
+    public ResponseEntity<Integer> getNumberOfEmployee(@PathVariable("id") String departmentId) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                departmentService.getNumberOfEmployeesForTheDepartment(departmentId));
+    }
 }

@@ -88,7 +88,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Double calculateAvgSalaryForTheDepartment(String departmentId) {
-        return departmentRepository.calculateAvgSalaryForTheDepartment(departmentId);
+        return departmentRepository.calculateAvgSalaryById(departmentId);
+    }
+
+    @Override
+    public Integer getNumberOfEmployeesForTheDepartment(String departmentId) {
+        return departmentRepository.countLectorsById(departmentId);
     }
 
     private Set<Lector> findLectorsByIds(String[] ids) {
