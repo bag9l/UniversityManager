@@ -41,7 +41,9 @@ public class LectorServiceImpl implements LectorService {
         Lector lector = new Lector();
         BeanUtils.copyProperties(dto, lector);
 
-        lector.setDepartments(findDepartmentsByIds(dto.getDepartmentsIds()));
+        if(dto.getDepartmentsIds()!=null){
+            lector.setDepartments(findDepartmentsByIds(dto.getDepartmentsIds()));
+        }
 
         return lectorRepository.save(lector);
     }
@@ -58,7 +60,9 @@ public class LectorServiceImpl implements LectorService {
         return lectorRepository.findById(id)
                 .map(lector -> {
                     BeanUtils.copyProperties(lectorSource, lector, getNullPropertyNames(lectorSource));
-                    lector.setDepartments(findDepartmentsByIds(lectorSource.getDepartmentsIds()));
+                    if(lectorSource.getDepartmentsIds()!=null){
+                        lector.setDepartments(findDepartmentsByIds(lectorSource.getDepartmentsIds()));
+                    }
                     return lectorRepository.save(lector);
                 }).orElseThrow(() ->
                         new EntityNotExistsException("Lector with id:" + id + " not found"));

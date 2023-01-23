@@ -22,4 +22,7 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
 
     @Query("SELECT COUNT(l) FROM Department d JOIN d.lectors l WHERE d.id =:id")
     Integer countLectorsById(@Param("id") String departmentId);
+
+    @Query("SELECT d FROM Department d JOIN d.head h WHERE h.id =:id")
+    Optional<Department> findDepartmentByHeadId(@Param("id") String headId);
 }

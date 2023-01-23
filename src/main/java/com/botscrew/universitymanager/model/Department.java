@@ -1,5 +1,7 @@
 package com.botscrew.universitymanager.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -53,18 +55,26 @@ public class Department {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Lector> lectors;
 
+    @JsonIgnore
+    public Lector getHead() {
+        return head;
+    }
+
+    @JsonBackReference
+    public Set<Lector> getLectors() {
+        return lectors;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Department)) return false;
         Department that = (Department) o;
-        return id.equals(that.id)
-                && name.equals(that.name)
-                && Objects.equals(lectors, that.lectors);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lectors);
+        return Objects.hash(id);
     }
 }

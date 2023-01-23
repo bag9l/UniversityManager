@@ -1,5 +1,6 @@
 package com.botscrew.universitymanager.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -43,17 +44,31 @@ public class Lector {
     private Integer age;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
-            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH
     })
     @JoinTable(name = "lector_department",
             joinColumns = {
-                    @JoinColumn(name = "lector_id", referencedColumnName = "id")
+                    @JoinColumn(
+                            name = "lector_id",
+                            referencedColumnName = "id"
+                    )
             },
             inverseJoinColumns = {
-                    @JoinColumn(name = "department_id", referencedColumnName = "id")
+                    @JoinColumn(
+                            name = "department_id",
+                            referencedColumnName = "id"
+                    )
             }
     )
     private Set<Department> departments;
+
+    @JsonManagedReference
+    public Set<Department> getDepartments() {
+        return departments;
+    }
 
     public Integer getAge() {
         return Period.between(this.dateOfBirth, LocalDate.now()).getYears();

@@ -2,15 +2,18 @@ package com.botscrew.universitymanager.service.impl;
 
 import com.botscrew.universitymanager.dto.DepartmentDTO;
 import com.botscrew.universitymanager.exception.EntityNotExistsException;
+import com.botscrew.universitymanager.exception.LectorIsAlreadyHeadException;
 import com.botscrew.universitymanager.model.Degree;
 import com.botscrew.universitymanager.model.Department;
 import com.botscrew.universitymanager.model.Lector;
 import com.botscrew.universitymanager.repository.DepartmentRepository;
 import com.botscrew.universitymanager.repository.LectorRepository;
 import com.botscrew.universitymanager.service.DepartmentService;
+import jakarta.persistence.PreRemove;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -39,8 +42,23 @@ public class DepartmentServiceImpl implements DepartmentService {
         Department department = new Department();
         BeanUtils.copyProperties(dto, department);
 
-        department.setLectors(findLectorsByIds(dto.getLectorsIds()));
-        department.setHead(findHeadById(dto.getHeadId()));
+        if (dto.getLectorsIds() != null) {
+            department.setLectors(findLectorsByIds(dto.getLectorsIds()));
+        }
+        if (dto.getHeadId() != null) {
+
+            if(departmentRepository.findDepartmentByHeadId(dto.getHeadId()).orElse(null)!=null){
+                throw new LectorIsAlreadyHeadException();
+            }
+
+            Lector head = findHeadById(dto.getHeadId());
+
+            Set<Lector> lectors = department.getLectors();
+            lectors.add(head);
+            department.setLectors(lectors);
+
+            department.setHead(head);
+        }
 
         return departmentRepository.save(department);
     }
@@ -51,13 +69,31 @@ public class DepartmentServiceImpl implements DepartmentService {
                 new EntityNotExistsException("Department with id:" + id + " not found"));
     }
 
+    @Transactional
     @Override
     public Department updateDepartment(DepartmentDTO departmentSource, String id) {
         return departmentRepository.findById(id)
                 .map(department -> {
                     BeanUtils.copyProperties(departmentSource, department, getNullPropertyNames(departmentSource));
-                    department.setLectors(findLectorsByIds(departmentSource.getLectorsIds()));
-                    department.setHead(findHeadById(departmentSource.getHeadId()));
+                    if (departmentSource.getLectorsIds() != null) {
+                        department.setLectors(findLectorsByIds(departmentSource.getLectorsIds()));
+                    }
+
+                    if (departmentSource.getHeadId() != null) {
+
+                        if(departmentRepository.findDepartmentByHeadId(departmentSource.getHeadId()).orElse(null)!=null){
+                            throw new LectorIsAlreadyHeadException();
+                        }
+
+                        Lector head = findHeadById(departmentSource.getHeadId());
+
+                        Set<Department> departments = head.getDepartments();
+                        departments.add(department);
+                        head.setDepartments(departments);
+
+                        department.setHead(head);
+                    }
+
                     return departmentRepository.save(department);
                 }).orElseThrow(() ->
                         new EntityNotExistsException("Department with id:" + id + " not found"));
