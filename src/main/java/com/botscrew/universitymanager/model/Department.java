@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Objects;
 import java.util.Set;
@@ -28,7 +30,27 @@ public class Department {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Lector head;
 
-    @ManyToMany(mappedBy = "departments", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH
+    })
+    @JoinTable(name = "lector_department",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "department_id",
+                            referencedColumnName = "id"
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "lector_id",
+                            referencedColumnName = "id"
+                    )
+            }
+    )
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Lector> lectors;
 
     @Override
