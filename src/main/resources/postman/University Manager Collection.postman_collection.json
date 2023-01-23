@@ -1,0 +1,350 @@
+{
+	"info": {
+		"_postman_id": "b857c320-28b1-4588-9351-0ba39311e9f6",
+		"name": "University Manager Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22698579"
+	},
+	"item": [
+		{
+			"name": "CRUD",
+			"item": [
+				{
+					"name": "Create lector",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Andrii\",\r\n    \"lastname\": \"Polyshcuk\",\r\n    \"degree\": \"assistant\",\r\n    \"salary\": 12200.0,\r\n    \"dateOfBirth\": \"1998-06-07\",\r\n    \"departmentsIds\": [\r\n        \"402880ee85d8e8160185d9624d0e0004\"\r\n        ,\r\n        \"402880ee85d9e42a0185d9e44cab0000\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/lectors/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"lectors",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create department",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"name\": \"KRKT\",\r\n    \"lectors\":[\r\n        {\r\n            \"id\": \"402880ee85d8b50c0185d8b6364c0000\"\r\n        },\r\n        {\r\n            \"id\": \"402880ee85d8e8160185d95ca8e00002\"\r\n        },\r\n        {\r\n            \"id\": \"402880ee85d8e8160185d95dc3d60003\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departments/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departments",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get lectors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/lectors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"lectors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get lector by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/lectors/402880ee85d0ac290185d0ac40a30000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"lectors",
+								"402880ee85d0ac290185d0ac40a30000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get departments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get department by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departments/402880ee85d0ac290185d0b7fcbd0002",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departments",
+								"402880ee85d0ac290185d0b7fcbd0002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a lector",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departments/402880ee85d8b50c0185d8b6366d0001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departments",
+								"402880ee85d8b50c0185d8b6366d0001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a department",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"KSP\",\r\n    \"head\": {\r\n        \"id\": \"402880ee85d0ac290185d0ac40a30000\",\r\n        \"firstname\": \"Oleh\",\r\n        \"lastname\": \"Blahytko\",\r\n        \"degree\": \"professor\",\r\n        \"salary\": 20500.00,\r\n        \"dateOfBirth\": \"1965-03-07\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departments/402880ee85d8b50c0185d8b6366d0001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departments",
+								"402880ee85d8b50c0185d8b6366d0001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a lector",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/lectors/402880ee85d8b50c0185d8b6366d0001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"lectors",
+								"402880ee85d8b50c0185d8b6366d0001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a department",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departments/402880ee85d8b50c0185d8b6366d0001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departments",
+								"402880ee85d8b50c0185d8b6366d0001"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get head of department",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/departments/402880ee85d8b50c0185d8b6366d0001/head",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"departments",
+						"402880ee85d8b50c0185d8b6366d0001",
+						"head"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get department statistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/departments/402880ee85d8e8160185d9624d0e0004/statistics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"departments",
+						"402880ee85d8e8160185d9624d0e0004",
+						"statistics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get average salary for the department",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get number of employees for the department",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Find lectors by template",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/lectors/search?template=Ol",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"lectors",
+						"search"
+					],
+					"query": [
+						{
+							"key": "template",
+							"value": "Ol"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
