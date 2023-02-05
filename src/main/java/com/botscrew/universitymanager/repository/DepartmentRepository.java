@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 public interface DepartmentRepository extends JpaRepository<Department, String> {
@@ -18,7 +19,7 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
     Integer countLectorsByIdAndLectorDegree(@Param("id") String departmentId, @Param("degree") Degree degree);
 
     @Query("SELECT AVG(l.salary) FROM Department d JOIN d.lectors l WHERE d.id =:id")
-    Double calculateAvgSalaryById(@Param("id") String departmentId);
+    BigDecimal calculateAvgSalaryById(@Param("id") String departmentId);
 
     @Query("SELECT COUNT(l) FROM Department d JOIN d.lectors l WHERE d.id =:id")
     Integer countLectorsById(@Param("id") String departmentId);

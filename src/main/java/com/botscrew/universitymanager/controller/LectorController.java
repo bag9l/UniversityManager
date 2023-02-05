@@ -22,7 +22,7 @@ public class LectorController {
         this.lectorService = lectorService;
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Lector>> getLectors() {
         return ResponseEntity.status(HttpStatus.OK).body(
                 lectorService.getAllLectors());
@@ -34,7 +34,7 @@ public class LectorController {
                 lectorService.getLectorById(id));
     }
 
-    @PostMapping("create")
+    @PostMapping
     public ResponseEntity<Lector> createLector(@RequestBody @Valid LectorDTO dto) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 lectorService.addLector(dto));

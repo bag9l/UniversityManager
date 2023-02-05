@@ -4,6 +4,7 @@ import com.botscrew.universitymanager.dto.DepartmentDTO;
 import com.botscrew.universitymanager.model.Department;
 import com.botscrew.universitymanager.model.Lector;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public interface DepartmentService {
 
     Map<String, Integer> getLectorsStatisticOfDepartment(String departmentId);
 
-    Double calculateAvgSalaryForTheDepartment(String departmentId);
+    BigDecimal calculateAvgSalaryForTheDepartment(String departmentId);
 
     Integer getNumberOfEmployeesForTheDepartment(String departmentId);
 }

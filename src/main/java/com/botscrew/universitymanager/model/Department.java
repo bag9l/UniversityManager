@@ -6,9 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,7 +18,7 @@ import java.util.Set;
 @ToString
 @Table(name = "`department`")
 @Entity
-public class Department {
+public class Department implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")

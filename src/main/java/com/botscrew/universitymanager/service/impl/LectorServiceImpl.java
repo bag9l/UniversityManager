@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,7 +42,7 @@ public class LectorServiceImpl implements LectorService {
         Lector lector = new Lector();
         BeanUtils.copyProperties(dto, lector);
 
-        if(dto.getDepartmentsIds()!=null){
+        if (dto.getDepartmentsIds() != null) {
             lector.setDepartments(findDepartmentsByIds(dto.getDepartmentsIds()));
         }
 
@@ -60,7 +61,7 @@ public class LectorServiceImpl implements LectorService {
         return lectorRepository.findById(id)
                 .map(lector -> {
                     BeanUtils.copyProperties(lectorSource, lector, getNullPropertyNames(lectorSource));
-                    if(lectorSource.getDepartmentsIds()!=null){
+                    if (lectorSource.getDepartmentsIds() != null) {
                         lector.setDepartments(findDepartmentsByIds(lectorSource.getDepartmentsIds()));
                     }
                     return lectorRepository.save(lector);

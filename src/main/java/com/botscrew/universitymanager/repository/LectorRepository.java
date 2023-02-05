@@ -1,14 +1,13 @@
 package com.botscrew.universitymanager.repository;
 
 import com.botscrew.universitymanager.model.Lector;
-import com.botscrew.universitymanager.repository.custom.CustomizedLectorRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface LectorRepository extends JpaRepository<Lector, String>, CustomizedLectorRepository {
+public interface LectorRepository extends JpaRepository<Lector, String> {
 
     @Query("""
             SELECT l FROM Lector l 

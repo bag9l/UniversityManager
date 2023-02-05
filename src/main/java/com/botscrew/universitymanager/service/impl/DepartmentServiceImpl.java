@@ -9,12 +9,12 @@ import com.botscrew.universitymanager.model.Lector;
 import com.botscrew.universitymanager.repository.DepartmentRepository;
 import com.botscrew.universitymanager.repository.LectorRepository;
 import com.botscrew.universitymanager.service.DepartmentService;
-import jakarta.persistence.PreRemove;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,20 +45,8 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (dto.getLectorsIds() != null) {
             department.setLectors(findLectorsByIds(dto.getLectorsIds()));
         }
-        if (dto.getHeadId() != null) {
 
-            if(departmentRepository.findDepartmentByHeadId(dto.getHeadId()).orElse(null)!=null){
-                throw new LectorIsAlreadyHeadException();
-            }
-
-            Lector head = findHeadById(dto.getHeadId());
-
-            Set<Lector> lectors = department.getLectors();
-            lectors.add(head);
-            department.setLectors(lectors);
-
-            department.setHead(head);
-        }
+        setHeadOfDepartment(department, dto.getHeadId());
 
         return departmentRepository.save(department);
     }
@@ -79,20 +67,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                         department.setLectors(findLectorsByIds(departmentSource.getLectorsIds()));
                     }
 
-                    if (departmentSource.getHeadId() != null) {
-
-                        if(departmentRepository.findDepartmentByHeadId(departmentSource.getHeadId()).orElse(null)!=null){
-                            throw new LectorIsAlreadyHeadException();
-                        }
-
-                        Lector head = findHeadById(departmentSource.getHeadId());
-
-                        Set<Department> departments = head.getDepartments();
-                        departments.add(department);
-                        head.setDepartments(departments);
-
-                        department.setHead(head);
-                    }
+                    setHeadOfDepartment(department, departmentSource.getHeadId());
 
                     return departmentRepository.save(department);
                 }).orElseThrow(() ->
@@ -123,7 +98,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Double calculateAvgSalaryForTheDepartment(String departmentId) {
+    public BigDecimal calculateAvgSalaryForTheDepartment(String departmentId) {
         return departmentRepository.calculateAvgSalaryById(departmentId);
     }
 
@@ -143,5 +118,22 @@ public class DepartmentServiceImpl implements DepartmentService {
         Lector head = lectorRepository.findById(id).orElseThrow(() ->
                 new EntityNotExistsException("Lector with id:" + id + " not found"));
         return head;
+    }
+
+    private void setHeadOfDepartment(Department department, String headId) {
+        if (headId != null) {
+
+            if (departmentRepository.findDepartmentByHeadId(headId).orElse(null) != null) {
+                throw new LectorIsAlreadyHeadException();
+            }
+
+            Lector head = findHeadById(headId);
+
+            Set<Department> departments = head.getDepartments();
+            departments.add(department);
+            head.setDepartments(departments);
+
+            department.setHead(head);
+        }
     }
 }

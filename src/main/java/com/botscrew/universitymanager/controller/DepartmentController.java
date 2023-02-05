@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Department>> getDepartments() {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.getAllDepartments());
@@ -36,7 +37,7 @@ public class DepartmentController {
                 departmentService.getDepartmentById(id));
     }
 
-    @PostMapping("create")
+    @PostMapping
     public ResponseEntity<Department> createDepartment(@RequestBody @Valid DepartmentDTO dto) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.addDepartment(dto));
@@ -67,13 +68,13 @@ public class DepartmentController {
                 departmentService.getLectorsStatisticOfDepartment(departmentId));
     }
 
-    @GetMapping("{id}/avg_salary")
-    public ResponseEntity<Double> getAvgSalary(@PathVariable("id") String departmentId) {
+    @GetMapping("{id}/avg-salary")
+    public ResponseEntity<BigDecimal> getAvgSalary(@PathVariable("id") String departmentId) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.calculateAvgSalaryForTheDepartment(departmentId));
     }
 
-    @GetMapping("{id}/number_of_employees")
+    @GetMapping("{id}/number-of-employees")
     public ResponseEntity<Integer> getNumberOfEmployee(@PathVariable("id") String departmentId) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 departmentService.getNumberOfEmployeesForTheDepartment(departmentId));

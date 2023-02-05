@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
@@ -16,17 +17,20 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+//@Indexed()
 @Table(name = "`lector`")
 @Entity
-public class Lector {
+public class Lector implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
+    //    @Field
     @Column(name = "`firstname`", nullable = false)
     private String firstname;
 
+    //    @Field
     @Column(name = "`lastname`", nullable = false)
     private String lastname;
 
