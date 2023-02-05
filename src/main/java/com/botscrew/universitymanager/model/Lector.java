@@ -17,7 +17,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-//@Indexed()
 @Table(name = "`lector`")
 @Entity
 public class Lector implements Serializable {
@@ -26,11 +25,9 @@ public class Lector implements Serializable {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    //    @Field
     @Column(name = "`firstname`", nullable = false)
     private String firstname;
 
-    //    @Field
     @Column(name = "`lastname`", nullable = false)
     private String lastname;
 
