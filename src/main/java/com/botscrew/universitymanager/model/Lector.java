@@ -16,7 +16,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString()
 @Table(name = "`lector`")
 @Entity
 public class Lector implements Serializable {
@@ -64,7 +64,18 @@ public class Lector implements Serializable {
                     )
             }
     )
+    @ToString.Exclude
     private Set<Department> departments;
+
+    public Lector(String id, String firstname, String lastname, Degree degree, BigDecimal salary, LocalDate dateOfBirth, Set<Department> departments) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.degree = degree;
+        this.salary = salary;
+        this.dateOfBirth = dateOfBirth;
+        this.departments = departments;
+    }
 
     @JsonManagedReference
     public Set<Department> getDepartments() {

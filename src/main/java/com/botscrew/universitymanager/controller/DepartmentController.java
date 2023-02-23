@@ -5,7 +5,7 @@ import com.botscrew.universitymanager.model.Department;
 import com.botscrew.universitymanager.model.Lector;
 import com.botscrew.universitymanager.service.DepartmentService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +14,13 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/departments")
 public class DepartmentController {
 
     private final DepartmentService departmentService;
 
-    @Autowired
-    public DepartmentController(DepartmentService departmentService) {
-        this.departmentService = departmentService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Department>> getDepartments() {

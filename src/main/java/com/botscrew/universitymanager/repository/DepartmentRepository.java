@@ -16,7 +16,7 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
     Optional<Lector> findHeadByDepartmentId(@Param("id") String id);
 
     @Query("SELECT COUNT(l) FROM Department d JOIN d.lectors l WHERE d.id =:id AND l.degree =:degree")
-    Integer countLectorsByIdAndLectorDegree(@Param("id") String departmentId, @Param("degree") Degree degree);
+    Integer countLectorsByDepartmentIdAndLectorDegree(@Param("id") String departmentId, @Param("degree") Degree degree);
 
     @Query("SELECT AVG(l.salary) FROM Department d JOIN d.lectors l WHERE d.id =:id")
     BigDecimal calculateAvgSalaryById(@Param("id") String departmentId);

@@ -4,23 +4,20 @@ import com.botscrew.universitymanager.dto.LectorDTO;
 import com.botscrew.universitymanager.model.Lector;
 import com.botscrew.universitymanager.service.LectorService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/lectors")
 public class LectorController {
 
     private final LectorService lectorService;
 
-    @Autowired
-    public LectorController(LectorService lectorService) {
-        this.lectorService = lectorService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Lector>> getLectors() {

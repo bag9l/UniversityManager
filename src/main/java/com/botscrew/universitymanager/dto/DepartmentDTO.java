@@ -2,22 +2,16 @@ package com.botscrew.universitymanager.dto;
 
 import com.botscrew.universitymanager.validator.NameConstraint;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-public class DepartmentDTO {
+public record DepartmentDTO(
+        String id,
 
-    private String id;
+        @NotNull(message = "must not be null")
+        @NameConstraint
+        String name,
 
-    @NotNull(message = "must not be null")
-    @NameConstraint
-    private String name;
+        String headId,
 
-    private String headId;
-
-    private String[] lectorsIds;
+        String[] lectorsIds
+) {
 }
