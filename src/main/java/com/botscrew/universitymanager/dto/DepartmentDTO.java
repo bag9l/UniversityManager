@@ -5,13 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record DepartmentDTO(
         String id,
-
-        @NotNull(message = "must not be null")
-        @NameConstraint
-        String name,
-
+        @NotNull(message = "must not be null") @NameConstraint String name,
         String headId,
-
         String[] lectorsIds
-) {
-}
+) { }

@@ -9,23 +9,10 @@ import java.time.LocalDate;
 
 public record LectorDTO(
         String id,
-
-        @NotNull(message = "must not be null")
-        @NameConstraint
-        String firstname,
-
-        @NotNull(message = "must not be null")
-        @NameConstraint
-        String lastname,
-
-        @NotNull(message = "must not be null")
-        Degree degree,
-
+        @NotNull(message = "must not be null") @NameConstraint String firstname,
+        @NotNull(message = "must not be null") @NameConstraint String lastname,
+        @NotNull(message = "must not be null") Degree degree,
         BigDecimal salary,
-
-        @NotNull(message = "must not be null")
-        LocalDate dateOfBirth,
-
+        @NotNull(message = "must not be null") LocalDate dateOfBirth,
         String[] departmentsIds
-) {
-}
+) { }
