@@ -23,6 +23,7 @@ public abstract class DepartmentMapper {
                     "                .map(com.botscrew.universitymanager.model.Lector::getId)\n" +
                     "                .collect(java.util.stream.Collectors.toSet())" +
                     "                .toArray(String[]::new))")
+    @Mapping(target = "headId", source = "head.id")
     public abstract DepartmentDTO departmentToDto(Department department);
 
 
@@ -38,12 +39,9 @@ public abstract class DepartmentMapper {
         if (dto != null) {
             department.setId(dto.id());
             department.setName(dto.name());
+            department.setLectors(new HashSet<>(lectorRepository.findAllById(List.of(dto.lectorsIds()))));
+            setHeadOfDepartment(department, dto.headId(), departmentRepository, lectorRepository);
         }
-        department.setLectors(new HashSet<>(lectorRepository.findAllById(List.of(dto.lectorsIds()))));
-        department.setHead(lectorRepository.findById(dto.headId()).orElseThrow(() ->
-                new EntityNotExistsException("Lector with id:" + dto.headId() + " not found")));
-
-        setHeadOfDepartment(department, dto.headId(), departmentRepository, lectorRepository);
 
         return department;
     }
