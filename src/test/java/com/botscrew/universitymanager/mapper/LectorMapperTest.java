@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -44,7 +43,6 @@ class LectorMapperTest {
                 new BigDecimal(10_000.0),
                 LocalDate.of(2003, 3, 7),
                 Set.of(department));
-        String[] departmentIds = {"402880ee85d8b50c0185d8b6366d0002"};
         LectorDTO dto = new LectorDTO(
                 "402880ee85d0ac290185d0ac40a30000",
                 "firstname",
@@ -52,7 +50,7 @@ class LectorMapperTest {
                 Degree.ASSISTANT,
                 new BigDecimal(10_000.0),
                 LocalDate.of(2003, 3, 7),
-                departmentIds);
+                Set.of("402880ee85d8b50c0185d8b6366d0002"));
 
         LectorDTO result = underTest.lectorToDto(lector);
 
@@ -74,7 +72,6 @@ class LectorMapperTest {
                 new BigDecimal(10_000.0),
                 LocalDate.of(2003, 3, 7),
                 Set.of(department));
-        String[] departmentIds = {"402880ee85d8b50c0185d8b6366d0002"};
         LectorDTO dto = new LectorDTO(
                 "402880ee85d0ac290185d0ac40a30000",
                 "firstname",
@@ -82,14 +79,14 @@ class LectorMapperTest {
                 Degree.ASSISTANT,
                 new BigDecimal(10_000.0),
                 LocalDate.of(2003, 3, 7),
-                departmentIds);
-        when(departmentRepository.findAllById(List.of(dto.departmentsIds()))).thenReturn(List.of(department));
+                Set.of("402880ee85d8b50c0185d8b6366d0002"));
+        when(departmentRepository.findAllById(dto.departmentsIds())).thenReturn(List.of(department));
 
         Lector result = underTest.dtoToLector(dto, departmentRepository);
 
         assertThat(result).isEqualTo(lector);
 
-        verify(departmentRepository).findAllById(List.of(dto.departmentsIds()));
+        verify(departmentRepository).findAllById(dto.departmentsIds());
     }
 
 
@@ -100,6 +97,7 @@ class LectorMapperTest {
         assertThat(actual.degree()).isEqualTo(expected.degree());
         assertThat(actual.salary()).isEqualTo(expected.salary());
         assertThat(actual.dateOfBirth()).isEqualTo(expected.dateOfBirth());
-        assertArrayEquals(actual.departmentsIds(), expected.departmentsIds());
+        assertThat(actual.departmentsIds()).isEqualTo(expected.departmentsIds());
+//        assertArrayEquals(actual.departmentsIds(), expected.departmentsIds());
     }
 }

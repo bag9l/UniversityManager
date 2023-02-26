@@ -13,13 +13,12 @@ public interface LectorMapper {
     @Mapping(target = "departmentsIds",
             expression = "java(lector.getDepartments().stream()\n" +
                     "                .map(com.botscrew.universitymanager.model.Department::getId)\n" +
-                    "                .collect(java.util.stream.Collectors.toSet())" +
-                    "                .toArray(String[]::new))")
+                    "                .collect(java.util.stream.Collectors.toSet()))")
     LectorDTO lectorToDto(Lector lector);
 
     @Mapping(target = "departments",
             expression = "java(new java.util.HashSet<>(" +
-                    "departmentRepository.findAllById(java.util.List.of(dto.departmentsIds()))))")
+                    "departmentRepository.findAllById(dto.departmentsIds())))")
     Lector dtoToLector(LectorDTO dto, DepartmentRepository departmentRepository);
 
 }

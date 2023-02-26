@@ -73,19 +73,18 @@ class DepartmentServiceImplTest {
                 LocalDate.of(2003, 3, 7),
                 Set.of(new Department()));
 
-        String[] lectorsIds = {"402880ee85d0ac290185d0ac40a30000"};
         DepartmentDTO dto = new DepartmentDTO(
                 "402880ee85d8b50c0185d8b6366d0001",
                 "KRKS",
                 "402880ee85d0ac290185d0ac40a30000",
-                lectorsIds);
+                Set.of("402880ee85d0ac290185d0ac40a30000"));
         Department department = new Department(
-                        "402880ee85d8b50c0185d8b6366d0001",
-                        "KRKS",
-                        lector,
-                        Set.of(lector));
+                "402880ee85d8b50c0185d8b6366d0001",
+                "KRKS",
+                lector,
+                Set.of(lector));
 
-        when(departmentMapper.dtoToDepartment(dto,lectorRepository,departmentRepository)).thenReturn(department);
+        when(departmentMapper.dtoToDepartment(dto, lectorRepository, departmentRepository)).thenReturn(department);
         when(departmentRepository.save(department)).thenReturn(department);
 
         Department result = underTest.addDepartment(dto);
@@ -117,7 +116,7 @@ class DepartmentServiceImplTest {
 
         when(departmentRepository.findById(anyString())).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotExistsException.class, ()->{
+        assertThrows(EntityNotExistsException.class, () -> {
             underTest.getDepartmentById("402880ee85d8b50c0185d8b6366d0001");
         });
 
@@ -135,19 +134,18 @@ class DepartmentServiceImplTest {
                 LocalDate.of(2003, 3, 7),
                 Set.of(new Department()));
 
-        String[] lectorsIds = {"402880ee85d0ac290185d0ac40a30000"};
         DepartmentDTO dto = new DepartmentDTO(
                 "402880ee85d8b50c0185d8b6366d0002",
                 "KRKS",
                 "402880ee85d0ac290185d0ac40a30000",
-                lectorsIds);
+                Set.of("402880ee85d0ac290185d0ac40a30000"));
         Department department = new Department(
                 "402880ee85d8b50c0185d8b6366d0001",
                 "KRKS",
                 lector,
                 Set.of(lector));
 
-        when(departmentMapper.dtoToDepartment(dto,lectorRepository,departmentRepository)).thenReturn(department);
+        when(departmentMapper.dtoToDepartment(dto, lectorRepository, departmentRepository)).thenReturn(department);
         when(departmentRepository.findById("402880ee85d8b50c0185d8b6366d0002")).thenReturn(Optional.of(department));
         when(departmentRepository.save(department)).thenReturn(department);
 
@@ -170,7 +168,7 @@ class DepartmentServiceImplTest {
 
         when(departmentRepository.findById(anyString())).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotExistsException.class, ()->{
+        assertThrows(EntityNotExistsException.class, () -> {
             underTest.updateDepartment(dto, "402880ee85d8b50c0185d8b6366d0002");
         });
 
@@ -208,7 +206,7 @@ class DepartmentServiceImplTest {
 
         when(departmentRepository.findHeadByDepartmentId(anyString())).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotExistsException.class, ()->{
+        assertThrows(EntityNotExistsException.class, () -> {
             underTest.getHeadByDepartmentId("402880ee85d8b50c0185d8b6366d0002");
         });
 

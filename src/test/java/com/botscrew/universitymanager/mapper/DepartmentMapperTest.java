@@ -43,12 +43,11 @@ class DepartmentMapperTest {
                 LocalDate.of(2003, 3, 7),
                 Set.of(new Department()));
 
-        String[] lectorsIds = {"402880ee85d0ac290185d0ac40a30000"};
         DepartmentDTO dto = new DepartmentDTO(
                 "402880ee85d8b50c0185d8b6366d0002",
                 "KRKS",
                 "402880ee85d0ac290185d0ac40a30000",
-                lectorsIds);
+                Set.of("402880ee85d0ac290185d0ac40a30000"));
         Department department = new Department(
                 "402880ee85d8b50c0185d8b6366d0002",
                 "KRKS",
@@ -84,14 +83,16 @@ class DepartmentMapperTest {
                 "402880ee85d8b50c0185d8b6366d0002",
                 "KRKS",
                 lectorsIds[0],
-                lectorsIds);
+                Set.of("402880ee85d0ac290185d0ac40a30001",
+                        "402880ee85d0ac290185d0ac40a30002",
+                        "402880ee85d0ac290185d0ac40a30003"));
         Department department = new Department(
                 "402880ee85d8b50c0185d8b6366d0002",
                 "KRKS",
                 lector1,
                 Set.of(lector1, lector2, lector3));
 
-        when(lectorRepository.findAllById(Arrays.asList(dto.lectorsIds()))).thenReturn(lectors);
+        when(lectorRepository.findAllById(dto.lectorsIds())).thenReturn(lectors);
         when(lectorRepository.findById(dto.headId())).thenReturn(Optional.of(lector1));
         when(departmentRepository.findDepartmentByHeadId(dto.headId())).thenReturn(Optional.empty());
 
@@ -99,7 +100,7 @@ class DepartmentMapperTest {
 
         assertThat(result).isEqualTo(department);
 
-        verify(lectorRepository).findAllById(Arrays.asList(dto.lectorsIds()));
+        verify(lectorRepository).findAllById(dto.lectorsIds());
         verify(lectorRepository).findById(dto.headId());
         verify(departmentRepository).findDepartmentByHeadId(dto.headId());
     }
@@ -108,6 +109,6 @@ class DepartmentMapperTest {
         assertThat(actual.id()).isEqualTo(expected.id());
         assertThat(actual.name()).isEqualTo(expected.name());
         assertThat(actual.headId()).isEqualTo(expected.headId());
-        assertArrayEquals(actual.lectorsIds(), actual.lectorsIds());
+        assertThat(actual.lectorsIds()).isEqualTo(actual.lectorsIds());
     }
 }

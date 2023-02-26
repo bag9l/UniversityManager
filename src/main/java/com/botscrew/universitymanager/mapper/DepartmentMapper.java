@@ -21,8 +21,7 @@ public abstract class DepartmentMapper {
     @Mapping(target = "lectorsIds",
             expression = "java(department.getLectors().stream()\n" +
                     "                .map(com.botscrew.universitymanager.model.Lector::getId)\n" +
-                    "                .collect(java.util.stream.Collectors.toSet())" +
-                    "                .toArray(String[]::new))")
+                    "                .collect(java.util.stream.Collectors.toSet()))")
     @Mapping(target = "headId", source = "head.id")
     public abstract DepartmentDTO departmentToDto(Department department);
 
@@ -39,7 +38,7 @@ public abstract class DepartmentMapper {
         if (dto != null) {
             department.setId(dto.id());
             department.setName(dto.name());
-            department.setLectors(new HashSet<>(lectorRepository.findAllById(List.of(dto.lectorsIds()))));
+            department.setLectors(new HashSet<>(lectorRepository.findAllById(dto.lectorsIds())));
             setHeadOfDepartment(department, dto.headId(), departmentRepository, lectorRepository);
         }
 

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 public record LectorDTO(
         String id,
@@ -14,5 +15,6 @@ public record LectorDTO(
         @NotNull(message = "must not be null") Degree degree,
         BigDecimal salary,
         @NotNull(message = "must not be null") LocalDate dateOfBirth,
-        String[] departmentsIds
-) { }
+        Set<String> departmentsIds
+) {
+}
